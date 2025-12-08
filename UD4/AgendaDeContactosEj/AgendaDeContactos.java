@@ -175,7 +175,7 @@ public class AgendaDeContactos {
                 ModificaContacto(nombres, emails, telefonos, sc);
                 break;
             case 5:
-               EliminarContacto(nombres, emails, telefonos, position, sc);
+                EliminarContacto(nombres, emails, telefonos, position, sc);
                 break;
             case 0:
                 break;
@@ -252,72 +252,72 @@ public class AgendaDeContactos {
         }
 
 
-            MenuDeModificacionDeContacto();
-            System.out.println("Elige opción: ");
-            int opcion = Integer.parseInt(sc.nextLine());
-            switch (opcion) {
-                case 1:
-                    String NuevoNombre;
-                    do {
-                        System.out.println("Introduce el nuevo nombre del contacto");
-                        NuevoNombre = sc.nextLine().trim();
-                    } while (!ValidacionContact(nombres, NuevoNombre));
+        MenuDeModificacionDeContacto();
+        System.out.println("Elige opción: ");
+        int opcion = Integer.parseInt(sc.nextLine());
+        switch (opcion) {
+            case 1:
+                String NuevoNombre;
+                do {
+                    System.out.println("Introduce el nuevo nombre del contacto");
+                    NuevoNombre = sc.nextLine().trim();
+                } while (!ValidacionContact(nombres, NuevoNombre));
 
-                    nombres[index] = NuevoNombre;
-                    System.out.println("El nombre se ha modificado correctamente");
-                    break;
+                nombres[index] = NuevoNombre;
+                System.out.println("El nombre se ha modificado correctamente");
+                break;
 
-                case 2:
-                    int NuevoTelefono;
-                    do {
-                        System.out.println("Introduce el nuevo telefono del contacto");
-                        NuevoTelefono = Integer.parseInt(sc.nextLine().trim());
-                    } while (!ValidacionTelefono(telefonos, NuevoTelefono));
+            case 2:
+                int NuevoTelefono;
+                do {
+                    System.out.println("Introduce el nuevo telefono del contacto");
+                    NuevoTelefono = Integer.parseInt(sc.nextLine().trim());
+                } while (!ValidacionTelefono(telefonos, NuevoTelefono));
 
-                    telefonos[index] = NuevoTelefono;
-                    System.out.println("El telefono se ha modificado correctamente");
-                    break;
+                telefonos[index] = NuevoTelefono;
+                System.out.println("El telefono se ha modificado correctamente");
+                break;
 
-                case 3:
-                    String NuevoEmail;
-                    do {
-                        System.out.println("Introduce el nuevo email del contacto");
-                        NuevoEmail = sc.nextLine().trim();
-                    } while (!ValidacionEmail(emails, NuevoEmail));
+            case 3:
+                String NuevoEmail;
+                do {
+                    System.out.println("Introduce el nuevo email del contacto");
+                    NuevoEmail = sc.nextLine().trim();
+                } while (!ValidacionEmail(emails, NuevoEmail));
 
-                    emails[index] = NuevoEmail;
-                    System.out.println("El email se ha modificado correctamente");
-                    break;
+                emails[index] = NuevoEmail;
+                System.out.println("El email se ha modificado correctamente");
+                break;
 
-                case 4:
-                    do {
-                        System.out.println("Introduce el nuevo nombre del contacto");
-                        NuevoNombre = sc.nextLine().trim();
-                    } while (!ValidacionContact(nombres, NuevoNombre));
+            case 4:
+                do {
+                    System.out.println("Introduce el nuevo nombre del contacto");
+                    NuevoNombre = sc.nextLine().trim();
+                } while (!ValidacionContact(nombres, NuevoNombre));
 
-                    do {
-                        System.out.println("Introduce el nuevo telefono del contacto");
-                        NuevoTelefono = Integer.parseInt(sc.nextLine().trim());
-                    } while (!ValidacionTelefono(telefonos, NuevoTelefono));
+                do {
+                    System.out.println("Introduce el nuevo telefono del contacto");
+                    NuevoTelefono = Integer.parseInt(sc.nextLine().trim());
+                } while (!ValidacionTelefono(telefonos, NuevoTelefono));
 
-                    do {
-                        System.out.println("Introduce el nuevo email del contacto");
-                        NuevoEmail = sc.nextLine().trim();
-                    } while (!ValidacionEmail(emails, NuevoEmail));
+                do {
+                    System.out.println("Introduce el nuevo email del contacto");
+                    NuevoEmail = sc.nextLine().trim();
+                } while (!ValidacionEmail(emails, NuevoEmail));
 
-                    nombres[index] = NuevoNombre;
-                    telefonos[index] = NuevoTelefono;
-                    emails[index] = NuevoEmail;
+                nombres[index] = NuevoNombre;
+                telefonos[index] = NuevoTelefono;
+                emails[index] = NuevoEmail;
 
-                    System.out.println("El contacto se ha modificado correctamente");
-                    break;
-                case 0:
-                    break;
+                System.out.println("El contacto se ha modificado correctamente");
+                break;
+            case 0:
+                break;
 
-                default:
-                    System.out.println("Opcion no valida");
+            default:
+                System.out.println("Opcion no valida");
 
-            }
+        }
 
     }
 
@@ -326,9 +326,9 @@ public class AgendaDeContactos {
         for (int i = 0; i < nombres.length; i++) {
             if (nombres[i] != null) {
                 hayContactos = true;
-                System.out.println("Contacto: " +  nombres[i]);
-                System.out.println("Telefono del contacto: " +  telefonos[i]);
-                System.out.println("Email del contacto: " +  emails[i]);
+                System.out.println("Contacto: " + nombres[i]);
+                System.out.println("Telefono del contacto: " + telefonos[i]);
+                System.out.println("Email del contacto: " + emails[i]);
                 System.out.println();
                 System.out.println();
             }
