@@ -6,19 +6,14 @@ import java.util.Scanner;
 
 
 public class AgendaDeContactos {
-
+   static Scanner sc = new Scanner(System.in);
+   static int MAX_SIZE = 100;
+   static int position = 0;
+    static int  option;
+   static int[] telefonos = new int[MAX_SIZE];
+   static String[] nombres = new String[MAX_SIZE];
+   static String[] emails = new String[MAX_SIZE];
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        int MAX_SIZE = 100;
-        int index;
-        String busqueda = "";
-        int position = 0;
-        int option;
-        int[] telefonos = new int[MAX_SIZE];
-        String[] nombres = new String[MAX_SIZE];
-        String[] emails = new String[MAX_SIZE];
-
 
         do {
             MuestraMenu();
