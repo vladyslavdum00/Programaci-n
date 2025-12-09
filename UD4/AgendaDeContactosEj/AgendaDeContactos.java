@@ -27,7 +27,7 @@ public class AgendaDeContactos {
 
     }
 
-
+    //Metodos de UI de usuario:
     static String PideNombre(Scanner sc, String[] nombres, int position) {
         String nombre = "";
         System.out.println("Introduce el nombre del contacto: ");
@@ -53,6 +53,9 @@ public class AgendaDeContactos {
     }
 
     static void MuestraMenu() {
+        System.out.println("======================================");
+        System.out.println("      MENU / AGENDA DE CONTACTOS      ");
+        System.out.println("======================================");
         System.out.println();
         System.out.println("1. Listar contactos");
         System.out.println("2. Buscar por nombre");
@@ -69,7 +72,87 @@ public class AgendaDeContactos {
         return opcion;
     }
 
+    static void AddContact(String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
 
+        String nombre = "";
+        int telefono;
+        String email = "";
+
+        System.out.println("=====================================");
+        System.out.println("      REGISTRACIÓN DEL CONTACTO      ");
+        System.out.println("=====================================");
+        System.out.println();
+
+        do {
+            nombre = PideNombre(sc, nombres, position);
+        } while (!ValidacionContact(nombres, nombre));
+
+        do {
+            telefono = PideTelefono(sc, telefonos, position);
+        } while (!ValidacionTelefono(telefonos, telefono));
+
+        do {
+            email = PideEmail(sc, emails, position);
+        } while (!ValidacionEmail(emails, email));
+
+
+        nombres[position] = nombre.toLowerCase();
+        telefonos[position] = telefono;
+        emails[position] = email.toLowerCase();
+        System.out.println("Contacto agregado correctamente");
+
+
+    }
+
+    static String PideTextoParaBusquedaDeContacto(Scanner sc) {
+        String busqueda = "";
+        System.out.println("Introduce el nombre del contacto o cadena de texto que contiene: ");
+        busqueda = sc.nextLine().trim();
+        return busqueda;
+    }
+
+    static void BuscaYmuestraContacto(String[] nombres, String[] emails, int[] telefonos, Scanner sc) {
+
+        System.out.println("====================================");
+        System.out.println("      BUSQUEDA DE CONTACTOS      ");
+        System.out.println("====================================");
+        System.out.println();
+
+       String busqueda = PideTextoParaBusquedaDeContacto(sc);
+       int index = BuscarIndiceDeContacto(nombres, busqueda);
+
+        if (index == -1) {
+            System.out.println("El contacto no existe");
+        } else {
+            System.out.println("El nombre de contacto: " + nombres[index]);
+            System.out.println("El telefono de contacto: " + telefonos[index]);
+            System.out.println("El email de contacto: " + emails[index]);
+        }
+
+    }
+
+    static String PideNombreDeContacto(Scanner sc) {
+        String busqueda = "";
+        System.out.print("Introduce el nombre del contacto: ");
+        busqueda = sc.nextLine().trim();
+        return busqueda;
+    }
+
+    static void MenuDeModificacionDeContacto() {
+        System.out.println("============================================");
+        System.out.println("      MENU / MODIFICACIÓN DEL CONTACTO      ");
+        System.out.println("============================================");
+        System.out.println();
+        System.out.println("1. Modificar nombre del contacto");
+        System.out.println("2. Modificar telefono del contacto");
+        System.out.println("3. Modificar email del contacto");
+        System.out.println("4. Modificar todos los datos del contacto");
+        System.out.println("0. Salir");
+    }
+
+
+
+    //Metodos de logíca
     static boolean ValidacionContact(String[] nombres, String nombre) {
         if (nombre.isEmpty()) {
             System.out.println("El nombre no puede estar vacio");
@@ -125,33 +208,7 @@ public class AgendaDeContactos {
         return true;
     }
 
-    static void AddContact(String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
 
-        String nombre = "";
-        int telefono;
-        String email = "";
-
-
-        do {
-            nombre = PideNombre(sc, nombres, position);
-        } while (!ValidacionContact(nombres, nombre));
-
-        do {
-            telefono = PideTelefono(sc, telefonos, position);
-        } while (!ValidacionTelefono(telefonos, telefono));
-
-        do {
-            email = PideEmail(sc, emails, position);
-        } while (!ValidacionEmail(emails, email));
-
-
-        nombres[position] = nombre.toLowerCase();
-        telefonos[position] = telefono;
-        emails[position] = email.toLowerCase();
-        System.out.println("Contacto agregado correctamente");
-
-
-    }
 
     static int Funcionalidad(int option, String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
         switch (option) {
@@ -159,8 +216,7 @@ public class AgendaDeContactos {
                 ListarContactos(nombres, emails, telefonos);
                 break;
             case 2:
-                System.out.println("Datos del contacto buscado");
-                BuscaYmuestraContacto(nombres, emails, telefonos, 0, "", sc);
+                BuscaYmuestraContacto(nombres, emails, telefonos, sc);
                 break;
             case 3:
                 AddContact(nombres, emails, telefonos, position, sc);
@@ -184,12 +240,6 @@ public class AgendaDeContactos {
         return position;
     }
 
-    static String PideTextoParaBusquedaDeContacto(Scanner sc) {
-        String busqueda = "";
-        System.out.println("Introduce el nombre del contacto o cadena de texto que contiene: ");
-        busqueda = sc.nextLine().trim();
-        return busqueda;
-    }
 
     static int BuscarIndiceDeContacto(String[] nombres, String busqueda) {
         String texto = busqueda.toLowerCase();
@@ -205,37 +255,6 @@ public class AgendaDeContactos {
             }
         }
         return -1;
-    }
-
-    static void BuscaYmuestraContacto(String[] nombres, String[] emails, int[] telefonos, int index, String busqueda, Scanner sc) {
-        busqueda = PideTextoParaBusquedaDeContacto(sc);
-        index = BuscarIndiceDeContacto(nombres, busqueda);
-
-        if (index == -1) {
-            System.out.println("El contacto no existe");
-        } else {
-            System.out.println("El nombre de contacto: " + nombres[index]);
-            System.out.println("El telefono de contacto: " + telefonos[index]);
-            System.out.println("El email de contacto: " + emails[index]);
-        }
-
-    }
-
-
-    static String PideNombreDeContacto(Scanner sc) {
-        String busqueda = "";
-        System.out.print("Introduce el nombre del contacto: ");
-        busqueda = sc.nextLine().trim();
-        return busqueda;
-    }
-
-    static void MenuDeModificacionDeContacto() {
-        System.out.println();
-        System.out.println("1. Modificar nombre del contacto");
-        System.out.println("2. Modificar telefono del contacto");
-        System.out.println("3. Modificar email del contacto");
-        System.out.println("4. Modificar todos los datos del contacto");
-        System.out.println("0. Salir");
     }
 
     static void ModificaContacto(String[] nombres, String[] emails, int[] telefonos, Scanner sc) {
@@ -316,7 +335,12 @@ public class AgendaDeContactos {
 
     }
 
+
+
     static void ListarContactos(String[] nombres, String[] emails, int[] telefonos) {
+        System.out.println("====================================");
+        System.out.println("      LISTA DE CONTACTOS      ");
+        System.out.println("====================================");
         boolean hayContactos = false;
         for (int i = 0; i < nombres.length; i++) {
             if (nombres[i] != null) {
@@ -336,7 +360,9 @@ public class AgendaDeContactos {
     }
 
     static int EliminarContacto(String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
-
+        System.out.println("====================================");
+        System.out.println("      ELIMINACIÓN DEL CONTACTO      ");
+        System.out.println("====================================");
         String busqueda = PideNombreDeContacto(sc);
         int index = BuscarIndiceDeContacto(nombres, busqueda);
 
