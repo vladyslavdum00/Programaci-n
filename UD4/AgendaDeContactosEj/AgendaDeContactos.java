@@ -79,7 +79,7 @@ public class AgendaDeContactos {
         System.out.println("      REGISTRACIÓN DEL CONTACTO      ");
         System.out.println("=====================================");
         System.out.println();
-        if (position < 100) {
+        if (position < MAX_SIZE) {
             do {
                 nombre = PideNombre(sc);
             } while (!ValidacionContact(nombres, nombre));
@@ -165,7 +165,7 @@ public class AgendaDeContactos {
     static boolean ValidacionTelefono(int[] telefonos, int telefono) {
         String tel = String.valueOf(telefono);
         if (tel.length() != 9) {
-            System.out.println("El telefono no puede tener menos de 9 digitos");
+            System.out.println("El telefono no puede tener menos o más de 9 digitos");
             return false;
         }
 
