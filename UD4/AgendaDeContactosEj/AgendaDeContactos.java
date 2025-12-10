@@ -1,35 +1,33 @@
 
 package AgendaDeContactosEj;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
-
 public class AgendaDeContactos {
-   static Scanner sc = new Scanner(System.in);
-   static int MAX_SIZE = 100;
-   static int position = 0;
-    static int  option;
-   static int[] telefonos = new int[MAX_SIZE];
-   static String[] nombres = new String[MAX_SIZE];
-   static String[] emails = new String[MAX_SIZE];
+    static Scanner sc = new Scanner(System.in);
+    static int MAX_SIZE = 100;
+    static int position = 0;
+    static int option;
+    static int[] telefonos = new int[MAX_SIZE];
+    static String[] nombres = new String[MAX_SIZE];
+    static String[] emails = new String[MAX_SIZE];
+
     public static void main(String[] args) {
 
         do {
             MuestraMenu();
             option = EligaOption(sc);
-            position = Funcionalidad(option, nombres, emails, telefonos, position, sc);
-            System.out.println(Arrays.toString(nombres));
-            System.out.println(Arrays.toString(emails));
-            System.out.println(Arrays.toString(telefonos));
+            position = FuncionalidadMenu(option, nombres, emails, telefonos, position, sc);
+            //System.out.println(Arrays.toString(nombres));
+            //System.out.println(Arrays.toString(emails));
+            //System.out.println(Arrays.toString(telefonos));
         } while (option != 0);
-
 
     }
 
     //Metodos de UI de usuario:
-    static String PideNombre(Scanner sc, String[] nombres, int position) {
-        String nombre = "";
+    static String PideNombre(Scanner sc) {
+        String nombre ="";
         System.out.println("Introduce el nombre del contacto: ");
         nombre = sc.nextLine().trim();
 
@@ -37,7 +35,7 @@ public class AgendaDeContactos {
     }
 
 
-    static int PideTelefono(Scanner sc, int[] telefonos, int position) {
+    static int PideTelefono(Scanner sc) {
         int telefono;
         System.out.println("Introduce el telefono del contacto: ");
         telefono = Integer.parseInt(sc.nextLine().trim());
@@ -45,8 +43,8 @@ public class AgendaDeContactos {
         return telefono;
     }
 
-    static String PideEmail(Scanner sc, String[] emails, int position) {
-        String email = "";
+    static String PideEmail(Scanner sc) {
+        String email;
         System.out.println("Introduce el email del contacto: ");
         email = sc.nextLine().trim();
         return email;
@@ -68,40 +66,38 @@ public class AgendaDeContactos {
     static int EligaOption(Scanner sc) {
         System.out.println();
         System.out.print("Elige opcion: ");
-        int opcion = Integer.parseInt(sc.nextLine());
-        return opcion;
+        return Integer.parseInt(sc.nextLine());
     }
 
     static void AddContact(String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
 
         String nombre = "";
         int telefono;
-        String email = "";
+        String email;
 
         System.out.println("=====================================");
         System.out.println("      REGISTRACIÓN DEL CONTACTO      ");
         System.out.println("=====================================");
         System.out.println();
+        if (position < 100) {
+            do {
+                nombre = PideNombre(sc);
+            } while (!ValidacionContact(nombres, nombre));
 
-        do {
-            nombre = PideNombre(sc, nombres, position);
-        } while (!ValidacionContact(nombres, nombre));
+            do {
+                telefono = PideTelefono(sc);
+            } while (!ValidacionTelefono(telefonos, telefono));
 
-        do {
-            telefono = PideTelefono(sc, telefonos, position);
-        } while (!ValidacionTelefono(telefonos, telefono));
+            do {
+                email = PideEmail(sc);
+            } while (!ValidacionEmail(emails, email));
 
-        do {
-            email = PideEmail(sc, emails, position);
-        } while (!ValidacionEmail(emails, email));
+            nombres[position] = nombre.toLowerCase();
+            telefonos[position] = telefono;
+            emails[position] = email.toLowerCase();
+            System.out.println("Contacto agregado correctamente");
 
-
-        nombres[position] = nombre.toLowerCase();
-        telefonos[position] = telefono;
-        emails[position] = email.toLowerCase();
-        System.out.println("Contacto agregado correctamente");
-
-
+        } else System.out.println("No se puede agregar contacto");
     }
 
     static String PideTextoParaBusquedaDeContacto(Scanner sc) {
@@ -118,8 +114,8 @@ public class AgendaDeContactos {
         System.out.println("====================================");
         System.out.println();
 
-       String busqueda = PideTextoParaBusquedaDeContacto(sc);
-       int index = BuscarIndiceDeContacto(nombres, busqueda);
+        String busqueda = PideTextoParaBusquedaDeContacto(sc);
+        int index = BuscarIndiceDeContacto(nombres, busqueda);
 
         if (index == -1) {
             System.out.println("El contacto no existe");
@@ -128,7 +124,6 @@ public class AgendaDeContactos {
             System.out.println("El telefono de contacto: " + telefonos[index]);
             System.out.println("El email de contacto: " + emails[index]);
         }
-
     }
 
     static String PideNombreDeContacto(Scanner sc) {
@@ -151,21 +146,18 @@ public class AgendaDeContactos {
     }
 
 
-
     //Metodos de logíca
     static boolean ValidacionContact(String[] nombres, String nombre) {
         if (nombre.isEmpty()) {
             System.out.println("El nombre no puede estar vacio");
             return false;
         }
-
         for (int i = 0; i < nombres.length; i++) {
 
             if (nombres[i] != null && nombres[i].equals(nombre)) {
                 System.out.println("Este contacto ya existe");
                 return false;
             }
-
         }
         return true;
     }
@@ -209,8 +201,7 @@ public class AgendaDeContactos {
     }
 
 
-
-    static int Funcionalidad(int option, String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
+    static int FuncionalidadMenu(int option, String[] nombres, String[] emails, int[] telefonos, int position, Scanner sc) {
         switch (option) {
             case 1:
                 ListarContactos(nombres, emails, telefonos);
@@ -229,9 +220,8 @@ public class AgendaDeContactos {
                 EliminarContacto(nombres, emails, telefonos, position, sc);
                 break;
             case 0:
+                System.out.println("Gracias por usar nuestra agenda!");
                 break;
-
-
             default:
                 System.out.println("Opcion no valida");
                 break;
@@ -246,9 +236,7 @@ public class AgendaDeContactos {
 
         for (int i = 0; i < nombres.length; i++) {
             if (nombres[i] != null) {
-
                 String nombre = nombres[i].toLowerCase();
-
                 if (nombre.contains(texto) || nombre.startsWith(texto)) {
                     return i;
                 }
@@ -330,11 +318,9 @@ public class AgendaDeContactos {
 
             default:
                 System.out.println("Opcion no valida");
-
         }
 
     }
-
 
 
     static void ListarContactos(String[] nombres, String[] emails, int[] telefonos) {
@@ -371,7 +357,6 @@ public class AgendaDeContactos {
             System.out.println("El contacto no existe");
             return position;
         }
-
 
         for (int i = index; i < position - 1; i++) {
             nombres[i] = nombres[i + 1];
