@@ -10,33 +10,33 @@ public class U4P2_E6 {
             System.out.println("Introduzca la palabra: ");
             palabras[i] = sc.nextLine().trim();
         }
-    String [] iguales = new String[palabras.length];
+    String [] iguales = new String[10];
     for (int i = 0; i < palabras.length; i++) {
-        for (int j = i+1; j < palabras.length; j++) {
+        for (int j = i + 1; j < iguales.length; j++) {
 
             if (palabras[i].equals(palabras[j])) {
                 iguales[i] = palabras[j];
             }
         }
     }
-    if (iguales[0] != null) {
+
         for (int i = 0; i < iguales.length; i++) {
-
+            if (iguales[i] != null ) {
                 System.out.println(iguales[i]);
+            }
+        }
 
     }
 
+
+
+
+
+
+
+
+
+
+
     }
 
-
-
-
-
-
-
-
-
-
-
-    }
-}
