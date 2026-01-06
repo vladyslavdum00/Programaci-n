@@ -1,14 +1,37 @@
 import java.util.Scanner;
 
 public class Conecta4 {
-    static void main(String[] args) {
+    public void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int [] Ncolumnas = {1, 2, 3, 4, 5, 6, 7};
+        char jugador = 'X';
+        boolean ganador = false;
+
         char tablero[][] = Tablero();
-        ImprimirTablero(tablero, Ncolumnas);
-        int columna = PideColumna(sc);
-        boolean ColumnaLlena = ComprobarColumna(columna, tablero);
-        System.out.println("Columna no esta Llena: " + ColumnaLlena);
+
+        while(!ganador){
+            ImprimirTablero(tablero, Ncolumnas);
+            System.out.println();
+            System.out.print("Turno del jugador: " + jugador);
+            System.out.println();
+
+            int columna = PideColumna(sc);
+
+            if (!ComprobarColumna(columna, tablero)) {
+                System.out.println("Columna esta llena, elige otra");
+                continue;
+            }
+
+            insertarFicha(columna, tablero, jugador);
+
+            if (ComprobarGanador(tablero, jugador)) {
+                ImprimirTablero(tablero, Ncolumnas);
+                System.out.println("Gana el jugador: " + jugador);
+                ganador = true;
+            }else {
+                jugador = jugador == 'X' ? 'O' : 'X';
+            }
+        }
 
     }
 
@@ -80,4 +103,68 @@ public class Conecta4 {
         }
         return false;
     }
+
+    static void insertarFicha(int columna, char[][] tablero, char jugador) {
+        for (int i = tablero.length - 1; i >= 0; i--) {
+            if (tablero[i][columna - 1] == '·') {
+                tablero[i][columna - 1] = jugador;
+                break;
+            }
+        }
+    }
+
+    static boolean ComprobarGanador(char[][] tablero, char jugador) {
+        //Comprobación horizontal
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (tablero[i][j] == jugador &&
+                        tablero[i][j + 1] == jugador &&
+                        tablero[i][j + 2] == jugador &&
+                        tablero[i][j + 3] == jugador) {
+                    return true;
+                }
+            }
+        }
+
+        //Comprobación vertical
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (tablero[i][j] == jugador &&
+                        tablero[i + 1][j] == jugador &&
+                        tablero[i + 2][j] == jugador &&
+                        tablero[i + 3][j] == jugador) {
+                    return true;
+                }
+            }
+        }
+
+        //Comprobación diagonal /
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (tablero[i][j] == jugador &&
+                        tablero[i - 1][j + 1] == jugador &&
+                        tablero[i - 2][j + 2] == jugador &&
+                        tablero[i - 3][j + 3] == jugador) {
+                    return true;
+                }
+            }
+        }
+
+        //Comprobación diagonal \
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (tablero[i][j] == jugador &&
+                        tablero[i + 1][j + 1] == jugador &&
+                        tablero[i + 2][j + 2] == jugador &&
+                        tablero[i + 3][j + 3] == jugador) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+
+    }
 }
+
