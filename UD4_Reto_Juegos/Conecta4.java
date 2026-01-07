@@ -19,6 +19,7 @@ public class Conecta4 {
 
             if (!ComprobarColumna(columna, tablero)) {
                 System.out.println("Columna esta llena, elige otra");
+
                 continue;
             }
 
