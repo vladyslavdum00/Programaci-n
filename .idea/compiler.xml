@@ -9,5 +9,8 @@
         <module name="EJEXAMEN" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Practicas_Arrays_Matrices" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>
