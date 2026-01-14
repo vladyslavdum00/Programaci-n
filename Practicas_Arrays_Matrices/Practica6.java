@@ -11,16 +11,12 @@ public class Practica6 {
 
        System.out.print("Introduce el número de desplazamientos (D): ");
        int d = sc.nextInt();
-/*
+
        for(int i = 0; i < d; i++){
            desplazar(numeros);
        }
        System.out.println("Desplazamientos: " + Arrays.toString(numeros));
-*/
-       desplazar(numeros);
-       System.out.println(Arrays.toString(numeros));
-       desplazar(numeros);
-       System.out.println(Arrays.toString(numeros));
+
     }
 
     static void desplazar (int[] numeros){

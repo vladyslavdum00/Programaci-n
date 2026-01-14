@@ -8,7 +8,7 @@ public class Practica3 {
         }
         System.out.println(Arrays.toString(nums));
         int difMax = Math.abs(nums[0] - nums[1]);
-        for (int j = 1; j < nums.length - 1; j++) {
+        for (int j = 0; j < nums.length - 1; j++) {
 
             if (Math.abs(nums[j] - nums[j +1]) == difMax || Math.abs(nums[j] - nums[j +1]) > difMax) {
                 difMax = Math.abs(nums[j] - nums[j +1]);

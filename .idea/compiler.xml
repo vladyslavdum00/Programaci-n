@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="EJEXAMEN" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="EJEXAMEN" target="25" />
+      <module name="Examen_UD4" target="25" />
       <module name="Practicas_Arrays_Matrices" target="25" />
+      <module name="UD5" target="25" />
     </bytecodeTargetLevel>
   </component>
 </project>
