@@ -7,12 +7,14 @@
         <option value="$PROJECT_DIR$/EJEXAMEN/pom.xml" />
         <option value="$PROJECT_DIR$/Examen_UD4/pom.xml" />
         <option value="$PROJECT_DIR$/UD5/pom.xml" />
+        <option value="$PROJECT_DIR$/UD55/pom.xml" />
+        <option value="$PROJECT_DIR$/UD_5/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/EJEXAMEN/pom.xml" />
-        <option value="$PROJECT_DIR$/UD5/pom.xml" />
+        <option value="$PROJECT_DIR$/UD55/pom.xml" />
       </set>
     </option>
   </component>
