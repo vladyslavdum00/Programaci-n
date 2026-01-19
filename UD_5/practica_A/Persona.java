@@ -4,7 +4,11 @@ public class Persona {
     private String apellido;
     private int edad;
 
-    public Persona() {};
+    public Persona() {
+    }
+
+    ;
+
     public Persona(String dni, String nombre, String apellido, int edad) {
         setDni(dni);
         setNombre(nombre);
@@ -15,12 +19,15 @@ public class Persona {
     public String getDni() {
         return dni;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public String getApellido() {
         return apellido;
     }
+
     public int getEdad() {
         return edad;
     }
@@ -28,29 +35,51 @@ public class Persona {
     public void setDni(String dni) {
         this.dni = dni;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    public void muestraDatos(){
+
+    public void muestraDatos() {
         System.out.println(getDni() + " " + getNombre() + " " + getApellido() + " " + getEdad());
     }
 
-    public boolean es_mayor_edad(){
-        if(getEdad() >= 18){
+    public boolean es_mayor_edad() {
+        if (getEdad() >= 18) {
             System.out.println("Es mayor de edad:");
-            return  true;
+            return true;
 
-        }else{
+        } else {
             System.out.println("Es mayor de edad:");
             return false;
 
         }
+
     }
+
+    public boolean es_jubilado(){
+        if(getEdad() >= 65){
+            System.out.println("Es jubilado:");
+            return  true;
+        }else{
+            System.out.println("Es jubilado:");
+            return false;
+        }
+
+    }
+
+    public int diferencia_edad(Persona p) {
+        System.out.println("Diferencia edad:");
+        return Math.abs(this.edad - p.getEdad());
+    }
+
 
 }

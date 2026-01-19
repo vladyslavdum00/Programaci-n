@@ -59,4 +59,21 @@ public class Rectangulo {
         int perimetro = (restaX2 * 2) +  (restaY2 * 2);
         return perimetro;
     }
+
+    public void setter_doble1(){
+        setX1(getX1());
+        setY1(getY1());
+    }
+    public void setter_doble2(){
+        setX2(getX2());
+        setY2(getY2());
+    }
+
+    public void setter_all(){
+        setX1(getX1());
+        setY1(getY1());
+        setX2(getX2());
+        setY2(getY2());
+    }
+
 }

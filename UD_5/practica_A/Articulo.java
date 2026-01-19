@@ -47,4 +47,23 @@ public class Articulo {
         System.out.println("Precio PVP: " + (precio + (precio * iva)));
 
     }
+
+    public void getPVPDescuento(int descuento){
+        double desc = (precio + (precio * iva)) * descuento / 100;
+        double PrecioDescuento = (precio + (precio * iva)) - desc;
+        System.out.println("Precio con descuento: " + PrecioDescuento);
+    }
+
+
+    public boolean vender(int cantidad){
+        if ((this.cantidadRestantes - cantidad) < 0){
+            System.out.println("No hay suficiente en stock");
+            return false;
+        }else{
+            this.cantidadRestantes -= cantidad;
+            System.out.println("Vendido");
+            return true;
+        }
+    }
+
 }

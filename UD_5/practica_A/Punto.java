@@ -31,16 +31,8 @@ public class Punto {
         setX(x + dx);
         setY(y + dy);
     }
-public int distancia(Punto p1, Punto p2){
-        int distanciaX = Math.abs(p1.getX() - p2.getX());
-        distanciaX = distanciaX * distanciaX;
-        int distanciaY = Math.abs(p1.getY() - p2.getY());
-        distanciaY = distanciaY * distanciaY;
-        int distanciaEnCuadrado = distanciaX + distanciaX;
-        double ds = Math.sqrt(distanciaEnCuadrado);
-        String dst = ds + " ";
-        int distancia = Integer.parseInt(dst);
-        return distancia;
+public int distancia(Punto p1){
+    return (int) Math.hypot(this.x - p1.getX(), this.y - p1.getY());
 
 
 }
