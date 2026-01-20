@@ -1,3 +1,5 @@
+package practica_A;
+
 public class Articulo {
     private String nombre;
     private double precio;
@@ -66,4 +68,15 @@ public class Articulo {
         }
     }
 
+
+    public boolean almacenar(int cantidad){
+        if ((this.cantidadRestantes + cantidad) <= 100){
+            this.cantidadRestantes += cantidad;
+            System.out.println("Se ha almacenado");
+            return true;
+        }else{
+            System.out.println("No hay suficiente espacio");
+            return false;
+        }
+    }
 }
