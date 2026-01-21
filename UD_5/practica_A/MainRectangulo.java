@@ -11,5 +11,12 @@ public class MainRectangulo {
         System.out.println("Perimetro: " + r2.calcularPerimetro());
         System.out.println("Area: " + r2.calcularArea());
 
+        r1.setter_allAleatorio();
+        r1.mostrar();
+
+        System.out.println();
+
+        r2.setter_allAleatorio();
+        r2.mostrar();
     }
 }

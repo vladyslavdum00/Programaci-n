@@ -1,4 +1,4 @@
-package practica_A;
+
 
 public class MainArticulo {
     public static void main(String[] args) {

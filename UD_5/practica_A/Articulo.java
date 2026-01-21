@@ -1,10 +1,12 @@
-package practica_A;
 
 public class Articulo {
     private String nombre;
     private double precio;
     private int cantidadRestantes;
-    private double iva = 0.21;
+    private String categoria;
+    final double ivaG = 0.21;
+    final double ivaR = 0.10;
+    final double ivaSR = 0.04;
 
     public Articulo() {}
     public Articulo(String nombre, double precio, int cantidadRestantes){
@@ -36,8 +38,15 @@ public class Articulo {
         this.cantidadRestantes = cantidadRestantes;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     public double getIva() {
-        return iva;
+        return ivaG;
     }
 
     public void mostrar(){
@@ -46,13 +55,16 @@ public class Articulo {
         System.out.println("Cantidad Restantes: " + getCantidadRestantes());
     }
     public void precioPVP(){
-        System.out.println("Precio PVP: " + (precio + (precio * iva)));
+        if (this.categoria.equals("PVP")){
+
+        }
+        System.out.println("Precio PVP: " + (precio + (precio * ivaG)));
 
     }
 
     public void getPVPDescuento(int descuento){
-        double desc = (precio + (precio * iva)) * descuento / 100;
-        double PrecioDescuento = (precio + (precio * iva)) - desc;
+        double desc = (precio + (precio * ivaG)) * descuento / 100;
+        double PrecioDescuento = (precio + (precio * ivaG)) - desc;
         System.out.println("Precio con descuento: " + PrecioDescuento);
     }
 

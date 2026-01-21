@@ -1,10 +1,17 @@
+import java.util.Random;
+
 public class Punto {
     private int x;
     private int y;
-    public Punto() {};
-    public Punto(int x, int y) {
-        setX(x);
-        setY(y);
+
+  public Punto(int x, int y) {
+     setX(x);
+     setY(y);
+  }
+    public static Punto creaPuntoAleatorio(){
+         int x = new Random().nextInt(-100, 100);
+         int y = new Random().nextInt(-100, 100);
+         return new Punto(x, y);
     }
     public int getX() {
         return x;

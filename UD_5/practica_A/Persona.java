@@ -1,16 +1,17 @@
 public class Persona {
-    private String dni;
+    final String dni;
     private String nombre;
     private String apellido;
     private int edad;
-
-    public Persona() {
-    }
-
-    ;
+    static final int mayoriaEdad = 18;
+    static final int jubiladoEdad = 65;
 
     public Persona(String dni, String nombre, String apellido, int edad) {
-        setDni(dni);
+        if (validarDNI(dni)){
+            this.dni = dni;
+        }else{
+            this.dni = null;
+        }
         setNombre(nombre);
         setApellido(apellido);
         setEdad(edad);
@@ -32,9 +33,6 @@ public class Persona {
         return edad;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -53,7 +51,7 @@ public class Persona {
     }
 
     public boolean es_mayor_edad() {
-        if (getEdad() >= 18) {
+        if (getEdad() >= mayoriaEdad) {
             System.out.println("Es mayor de edad:");
             return true;
 
@@ -66,7 +64,7 @@ public class Persona {
     }
 
     public boolean es_jubilado(){
-        if(getEdad() >= 65){
+        if(getEdad() >= jubiladoEdad){
             System.out.println("Es jubilado:");
             return  true;
         }else{
@@ -81,5 +79,25 @@ public class Persona {
         return Math.abs(this.edad - p.getEdad());
     }
 
+    static boolean validarDNI(String dni){
+        if (dni.length() != 9){
+            return false;
+        }
+        boolean letra = false;
+        int contador = 0;
+        if(dni.charAt(8) >= 'A' && dni.charAt(8) <= 'Z'){
+            letra = true;
+        }
+        for(int i = dni.length() - 1; i >= 0; i--){
+            if (dni.charAt(i) < 'A' || dni.charAt(i) > 'Z') {
+                contador++;
+            }
+
+            if(letra && contador == 8){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

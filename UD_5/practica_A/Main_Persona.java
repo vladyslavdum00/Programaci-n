@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main_Persona {
     static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-        Persona persona1 = new Persona("1234", "artem", "ovd", 78);
+        Persona persona1 = new Persona("12547894H", "artem", "ovd", 78);
         Persona persona2 = new Persona("5678", "pablo", "lop", 10);
 
 
