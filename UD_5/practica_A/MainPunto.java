@@ -1,6 +1,7 @@
+package practica_A;
 public class MainPunto {
     public static void main(String[] args) {
-       // Punto punto1 = new Punto(0, 0);
+        Punto punto1 = new Punto(0, 0);
        //Punto punto2 = new Punto(3, 4);
 //        Punto punto3 = new Punto(-3, 7);
 

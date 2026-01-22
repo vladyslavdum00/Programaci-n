@@ -1,3 +1,4 @@
+package practica_A;
 import java.util.Random;
 
 public class Punto {

@@ -1,3 +1,4 @@
+package practica_A;
 
 public class Articulo {
     private String nombre;
@@ -8,14 +9,15 @@ public class Articulo {
     final double ivaR = 0.10;
     final double ivaSR = 0.04;
 
-    public Articulo() {}
-    public Articulo(String nombre, double precio, int cantidadRestantes){
+    public Articulo(String nombre, double precio, int cantidadRestantes, String categoria) {
+
         if (cantidadRestantes<0 || precio<0 || nombre==null){
             System.out.println("Datos no son validos");
         }else{
             setNombre(nombre);
             setPrecio(precio);
             setCantidadRestantes(cantidadRestantes);
+            setCategoria(categoria);
         }
     }
 
@@ -55,17 +57,31 @@ public class Articulo {
         System.out.println("Cantidad Restantes: " + getCantidadRestantes());
     }
     public void precioPVP(){
-        if (this.categoria.equals("PVP")){
-
+        if (this.categoria.equals("Medicamentos")){
+            System.out.println("Precio PVP: " + (precio + (precio * ivaSR)));
+        }else if (this.categoria.equals("Heramientas")){
+            System.out.println("Precio PVP: " + (precio + (precio * ivaR)));
+        }else{
+            System.out.println("Precio PVP: " + (precio + (precio * ivaG)));
         }
-        System.out.println("Precio PVP: " + (precio + (precio * ivaG)));
+
 
     }
 
     public void getPVPDescuento(int descuento){
-        double desc = (precio + (precio * ivaG)) * descuento / 100;
-        double PrecioDescuento = (precio + (precio * ivaG)) - desc;
-        System.out.println("Precio con descuento: " + PrecioDescuento);
+        if (this.categoria.equals("Medicamentos")){
+            double desc = (precio + (precio * ivaSR)) * descuento / 100;
+            double PrecioDescuento = (precio + (precio * ivaSR)) - desc;
+            System.out.println("Precio con descuento: " + PrecioDescuento);
+        }else if (this.categoria.equals("Heramientas")){
+            double desc = (precio + (precio * ivaR)) * descuento / 100;
+            double PrecioDescuento = (precio + (precio * ivaR)) - desc;
+            System.out.println("Precio con descuento: " + PrecioDescuento);
+        }else{
+            double desc = (precio + (precio * ivaG)) * descuento / 100;
+            double PrecioDescuento = (precio + (precio * ivaG)) - desc;
+            System.out.println("Precio con descuento: " + PrecioDescuento);
+        }
     }
 
 
