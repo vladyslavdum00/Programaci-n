@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="UD_5" />
+        <module name="v2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -14,6 +14,8 @@
       <module name="Examen_UD4" target="25" />
       <module name="Practicas_Arrays_Matrices" target="25" />
       <module name="UD5" target="25" />
+      <module name="UD_5" target="25" />
+      <module name="v2" target="25" />
     </bytecodeTargetLevel>
   </component>
 </project>

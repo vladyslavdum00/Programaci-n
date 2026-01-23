@@ -6,10 +6,10 @@ public class Coche {
     private boolean pinturaMetalizada;
     final String matricula;
     final String tipo;
-    private int yearFabrication;
+    private String yearFabrication;
     private String seguro;
 
-    public Coche(String modelo, String color, boolean pinturaMetalizada, String matricula, String tipo, int yearFabrication,  String seguro) {
+    public Coche(String modelo, String color, boolean pinturaMetalizada, String matricula, String tipo, String yearFabrication,  String seguro) {
         if (modelo.length() != 0) {
             this.modelo = modelo;
         }else{
@@ -23,7 +23,7 @@ public class Coche {
             this.matricula = null;
         }
 
-        if(tipo.length() != 0){
+        if(tipo.length() != 0 && tipo.equals("MINI") || tipo.equals("UTILITARIO") || tipo.equals("FAMILIAR") || tipo.equals("DEPORTIVO")){
             this.tipo = tipo;
         }else{
             this.tipo = null;
@@ -48,7 +48,7 @@ public class Coche {
     public String getTipo() {
         return tipo;
     }
-    public int getYearFabrication() {
+    public String getYearFabrication() {
         return yearFabrication;
     }
     public String getSeguro() {
@@ -60,11 +60,19 @@ public class Coche {
     public void setPinturaMetalizada(boolean pinturaMetalizada) {
         this.pinturaMetalizada = pinturaMetalizada;
     }
-    public void setYearFabrication(int yearFabrication) {
-        this.yearFabrication = yearFabrication;
+    public void setYearFabrication(String yearFabrication) {
+        if  (yearFabrication.length() == 4){
+            this.yearFabrication = yearFabrication;
+        }else {
+            this.yearFabrication = null;
+        }
     }
     public void setSeguro(String seguro) {
-        this.seguro = seguro;
+        if (seguro.equals("TERCEROS") || seguro.equals("TODO_RIESGO")) {
+            this.seguro = seguro;
+        }else  {
+            this.seguro = null;
+        }
     }
 
     public void mostrar(){
