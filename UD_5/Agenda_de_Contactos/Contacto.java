@@ -49,4 +49,8 @@ public class Contacto {
         return nombre + " " + telefono + " " + email;
     }
 
+    public void print(){
+        System.out.println(getNombre() + " " + getTelefono() + " " + getEmail());
+    }
+
 }
