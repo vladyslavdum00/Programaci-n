@@ -32,7 +32,7 @@ public static void menuAgenda(){
         System.out.println("4. Buscar por nombre");
         System.out.println("5. Buscar por el telefono");
         System.out.println("6. Buscar por el  email");
-        System.out.println("7. Modificar contacto");
+        System.out.println("7. Busqueda general");
         System.out.println("0. Salir");
 
 }
@@ -85,6 +85,19 @@ public static void buscarPorNombre(String nombre){
         for(int i = 0; i < count; i++){
             String mail = contactos[i].getEmail().toLowerCase();
             if (mail.contains(email)){
+                System.out.println(contactos[i].toString());
+                encontrado = true;
+
+            }
+        }
+        if(!encontrado){
+            System.out.println("Contacto no encontrado");
+        }
+    }
+    public static void busquedaGeneral(String t){
+        boolean encontrado = false;
+        for(int i = 0; i < count; i++){
+            if (contactos[i].getTelefono().toLowerCase().contains(t) || contactos[i].getEmail().toLowerCase().contains(t) || contactos[i].getNombre().toLowerCase().contains(t)){
                 System.out.println(contactos[i].toString());
                 encontrado = true;
 

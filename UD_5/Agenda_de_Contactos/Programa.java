@@ -91,6 +91,9 @@ public class Programa {
             case 6:
                 buscaPorEmail(sc);
                 break;
+            case 7:
+                buscaPorTodo(sc);
+                break;
             case 0:
                 break;
 
@@ -118,6 +121,12 @@ public class Programa {
         System.out.println("Dime el email del contacto: ");
         String busquedaEmail = sc.nextLine().toLowerCase();
         Agenda.buscarPorEmail(busquedaEmail);
+    }
+
+    public static void buscaPorTodo(Scanner sc) {
+        System.out.println("Dime datos de la busqueda del contacto: ");
+        String busquedaGeneral = sc.nextLine().toLowerCase();
+        Agenda.busquedaGeneral(busquedaGeneral);
     }
 
 
