@@ -58,6 +58,10 @@ public class Programa {
         return new Contacto(nombre, telefono, email);
     }
 
+    public static void agregarContacto(){
+        Contacto contacto = pideDatosDeContacto(sc);
+        Agenda.agregarContacto(contacto);
+    }
 
     static int EligaOption(Scanner sc) {
         System.out.println();
@@ -74,8 +78,7 @@ public class Programa {
 
                 break;
             case 2:
-                Contacto contacto = pideDatosDeContacto(sc);
-                Agenda.agregarContacto(contacto);
+                agregarContacto();
 
 
                 break;
