@@ -28,8 +28,8 @@ public class Cuenta {
     }
 
     public void setSaldo(double saldo) {
-        if (saldo < 0) {
-            saldo = this.saldo;
+        if (saldo < -100) {
+            System.out.println("Saldo insuficiente");
         }
             this.saldo = saldo;
 
