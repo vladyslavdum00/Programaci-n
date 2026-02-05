@@ -16,10 +16,13 @@ public class Banco {
                 System.out.println(
                         "Cuenta: " + "#"+(i + 1) + "\n" + "Cliente " +
                                 cuenta.getCliente().getNombre() + " " +
-                                cuenta.getCliente().getApellido() + " | Saldo: " +
+                                cuenta.getCliente().getApellido() + " | " + "IBAN: " + cuenta.getIBAN() +
+                                " | Saldo: " +
                                 cuenta.getSaldo()
                 );
             }
+        }else{
+            System.out.println("no hay cuentas agregadas");
         }
     }
 
@@ -30,6 +33,7 @@ public class Banco {
             if (nom.contains(nombre)){
                 System.out.println("Nombre: " + cuentas.get(i).getCliente().getNombre());
                 System.out.println("Apellido: " + cuentas.get(i).getCliente().getApellido());
+                System.out.println("IBAN: " + cuentas.get(i).getIBAN());
                 System.out.println("Saldo: " + cuentas.get(i).getSaldo());
                 encontrado = true;
 
@@ -52,7 +56,8 @@ public class Banco {
                     System.out.println(
                             "Cuenta: " + "#"+(i + 1) + "\n" + "Cliente " +
                                     cuenta.getCliente().getNombre() + " " +
-                                    cuenta.getCliente().getApellido() + " | Saldo: " +
+                                    cuenta.getCliente().getApellido() + " | " + "IBAN: " + cuenta.getIBAN() +
+                                    " | Saldo: " +
                                     cuenta.getSaldo()
                     );
                 }
@@ -68,7 +73,7 @@ public class Banco {
         if (cuentas.get(pos).getCliente().getNombre().toLowerCase().equals(nombre)){
             double saldoActual = cuentas.get(pos).getSaldo();
             cuentas.get(pos).setSaldo(saldoActual + dinero);
-            System.out.println("Tu saldo de la cuenta despues de ingreso: " + cuentas.get(pos).getSaldo());
+
         }
     }
     public static void hacerRetirada(String nombre, double dinero, int pos){
@@ -78,13 +83,22 @@ public class Banco {
                 System.out.println("No tienes saldo suficiente");
             }else{
                 cuentas.get(pos).setSaldo(saldoActual - dinero);
-                System.out.println("Tu saldo de la cuenta despues de  retirada: " + cuentas.get(pos).getSaldo());
+
             }
         }
     }
 
     public static void hacerTransferencia(String nombre1, String nombre2, double dinero, int pos1, int pos2){
-
+        if (cuentas.get(pos1).getCliente().getNombre().toLowerCase().equals(nombre1) && cuentas.get(pos2).getCliente().getNombre().toLowerCase().equals(nombre2)) {
+            double saldoActual1 = cuentas.get(pos1).getSaldo();
+            if ((saldoActual1 - dinero) < -100){
+                System.out.println("No tienes saldo suficiente");
+            }else{
+               hacerRetirada(nombre1, dinero, pos1);
+               hacerIngreso(nombre2, dinero, pos2);
+                System.out.println("Transferencia realizada con exito");
+            }
+        }
     }
     }
 

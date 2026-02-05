@@ -47,6 +47,7 @@ public class Program {
                 hacerRetirada();
                 break;
             case 4:
+                hacerTransferencia();
                 break;
             case 5:
                 agregar_Cuenta_Cliente();
@@ -118,6 +119,7 @@ public class Program {
         Cuenta cuenta = new Cuenta(c);
         Banco.cuentas.add(cuenta);
 
+
     }
 
     public static void buscar_cuenta() {
@@ -186,6 +188,7 @@ public class Program {
             } while (!valorValido);
 
             Banco.hacerIngreso(nombre, dinero, pos);
+            System.out.println("Ingreso realizado correctamente");
 
         }
     }
@@ -231,11 +234,12 @@ public class Program {
             } while (!valorValido);
 
             Banco.hacerRetirada(nombre, dinero, pos);
+            System.out.println("Retirada de deniro realizada con exito");
 
         }
     }
 
-    public void hacerTransferencia() {
+    public static void hacerTransferencia() {
         String nombre1;
         boolean nombreValido;
         do {
@@ -264,11 +268,11 @@ public class Program {
         if (!encontrado1) {
             System.out.println("Cliente no encontrado");
         }
+        double dinero = 0;
         if (encontrado1) {
-            double dinero;
             boolean valorValido = false;
             do {
-                System.out.println("Dime el cantidad de dinero que desea retirar: ");
+                System.out.println("Dime el cantidad de dinero que desea transferir: ");
                 dinero = Double.parseDouble(sc.nextLine());
                 if (dinero > 0) {
                     valorValido = true;
@@ -305,6 +309,9 @@ public class Program {
 
             }
         }
+
+        Banco.hacerTransferencia(nombre1, nombre2, dinero, pos1, pos2);
     }
+
 }
 
