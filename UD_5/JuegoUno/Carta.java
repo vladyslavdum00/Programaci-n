@@ -27,4 +27,15 @@ public class Carta {
     public int getNumero() {
         return numero;
     }
+
+
+
+    @Override
+    public String toString() {
+        return "Carta{" +
+                "color=" + color +
+                ", tipoCarta=" + tipoCarta +
+                ", numero=" + numero +
+                '}';
+    }
 }

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class Jugador {
     private String nombre;
     private ArrayList<Carta> mano = new ArrayList<>();
-    public Jugador(String nombre) {
+    public Jugador(String nombre, ArrayList<Carta> mano) {
             setNombre(nombre);
+            setMano(mano);
     }
 
     public void setNombre(String nombre) {
@@ -16,4 +17,17 @@ public class Jugador {
         return nombre;
     }
 
+    public ArrayList<Carta> getMano() {
+        return mano;
+    }
+    public void setMano(ArrayList<Carta> mano) {
+        this.mano = mano;
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "mano=" + mano +
+                '}';
+    }
 }
