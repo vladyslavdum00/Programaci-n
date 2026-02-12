@@ -1,15 +1,20 @@
 package JuegoUno;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Mesa {
     private  ArrayList<Carta> mazo;
     private  ArrayList<Carta> descarte;
     public Mesa() {
-        mazo = new ArrayList<>();
-        descarte = new ArrayList<>();
+        this.mazo = new ArrayList<>();
+        this.descarte = new ArrayList<>();
         generarCarta();
-
+        barajarMazo();
+        toString();
+    }
+    public  void barajarMazo() {
+        Collections.shuffle(mazo);
     }
 
     public void printMazo(){
@@ -62,5 +67,12 @@ public class Mesa {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Mesa{" +
+                "mazo=" + mazo +
+                '}';
     }
 }

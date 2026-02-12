@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Jugador {
     private String nombre;
     private ArrayList<Carta> mano = new ArrayList<>();
-    public Jugador(String nombre, ArrayList<Carta> mano) {
+    public Jugador(String nombre) {
             setNombre(nombre);
-            setMano(mano);
     }
 
     public void setNombre(String nombre) {
