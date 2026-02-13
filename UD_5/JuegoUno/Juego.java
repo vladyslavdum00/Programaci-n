@@ -32,6 +32,18 @@ public class Juego {
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
+    public void setTurnoActual(int turnoActual) {
+        this.turnoActual = turnoActual;
+    }
+    public int getTurnoActual() {
+        return turnoActual;
+    }
+    public int getDireccion() {
+        return direccion;
+    }
+    public void setDireccion(int direccion) {
+        this.direccion = direccion;
+    }
 
 
 
@@ -78,38 +90,38 @@ public class Juego {
     public void listarCartas() {
 
         int ancho = 13; // ancho interno de la carta
+            Jugador jugador = getJugadores().get(turnoActual);
 
-        for (Jugador jugador : getJugadores()) {
 
             System.out.println("\nCartas de: " + jugador.getNombre());
 
-            // 🔢 Índices
+
             for (int i = 0; i < jugador.getMano().size(); i++) {
                 String indice = "(" + (i+1) + ")";
                 System.out.print(centrarTexto(indice, ancho + 2) + "  ");
             }
             System.out.println();
 
-            // 🔝 Línea superior
+
             for (int i = 0; i < jugador.getMano().size(); i++) {
                 System.out.print("┌" + "─".repeat(ancho) + "┐  ");
             }
             System.out.println();
 
-            // 🎨 Línea color
+
             for (Carta carta : jugador.getMano()) {
                 String color = carta.getColor().toString();
                 System.out.print("│" + centrarTexto(color, ancho) + "│  ");
             }
             System.out.println();
 
-            // 🔹 Línea vacía
+
             for (int i = 0; i < jugador.getMano().size(); i++) {
                 System.out.print("│" + " ".repeat(ancho) + "│  ");
             }
             System.out.println();
 
-            // 🔢 Número o tipo
+
             for (Carta carta : jugador.getMano()) {
 
                 String valor;
@@ -124,19 +136,105 @@ public class Juego {
             }
             System.out.println();
 
-            // 🔹 Línea vacía
+
             for (int i = 0; i < jugador.getMano().size(); i++) {
                 System.out.print("│" + " ".repeat(ancho) + "│  ");
             }
             System.out.println();
 
-            // 🔻 Línea inferior
+
             for (int i = 0; i < jugador.getMano().size(); i++) {
                 System.out.print("└" + "─".repeat(ancho) + "┘  ");
             }
             System.out.println("\n");
+
+    }
+
+    public void mostrarCartaActual() {
+        Carta carta =  getCartaActual();
+        int ancho = 13;
+
+        String color = carta.getColor().toString();
+
+        String valor;
+        if (carta.getTipoCarta() == TipoCarta.NUMERO) {
+            valor = String.valueOf(carta.getNumero());
+        } else {
+            valor = carta.getTipoCarta().toString();
+        }
+
+        System.out.println();
+        System.out.println("Carta Actual:");
+
+        System.out.println("┌" + "─".repeat(ancho) + "┐");
+        System.out.println("│" + centrarTexto(color, ancho) + "│");
+        System.out.println("│" + " ".repeat(ancho) + "│");
+        System.out.println("│" + centrarTexto(valor, ancho) + "│");
+        System.out.println("│" + " ".repeat(ancho) + "│");
+        System.out.println("└" + "─".repeat(ancho) + "┘");
+
+        System.out.println();
+    }
+
+    public void siguienteTurno() {
+        setTurnoActual((getTurnoActual() + getDireccion() + getJugadores().size()) % getJugadores().size());
+    }
+
+    public void mostrarTurnoActual() {
+        System.out.println("Turno Actual de " + jugadores.get(turnoActual).getNombre());
+    }
+
+    public boolean ponerCarta(){
+        Carta cartaActual = getCartaActual();
+        listarCartas();
+        int opcion = Main.elegirJugada();
+        if (opcion == 1){
+            jugadores.get(turnoActual).getMano().add(mesa.getMazo().getLast());
+            mesa.getMazo().removeLast();
+            listarCartas();
+        }
+
+        if (opcion == 2) {
+            int numCarta = Main.pideNumeroCarta();
+            Carta cartaMano = jugadores.get(turnoActual).getMano().get(numCarta);
+
+            if (cartaMano.getColor().equals(cartaActual.getColor()) || cartaMano.getNumero() == cartaActual.getNumero() || cartaMano.getColor().equals(Color.NEGRO)) {
+                mesa.getDescarte().add(getCartaActual());
+                setCartaActual(cartaMano);
+                jugadores.get(turnoActual).getMano().remove(numCarta);
+                return true;
+        }
+
+
+
+
+        }
+
+        return false;
+
+    }
+    public void mostrarDescarte(){
+        for(Carta carta : mesa.getDescarte()){
+            System.out.println(carta.toString());
         }
     }
+
+    public void empezarJuego(){
+        while (true){
+            mostrarCantidadCartasBaraja();
+            mostrarCartaActual();
+            boolean CartaPuesta = ponerCarta();
+            if (CartaPuesta){
+                siguienteTurno();
+
+            }
+
+        }
+    }
+    public void mostrarCantidadCartasBaraja(){
+        System.out.println("Cartas restantes en baraja: " + mesa.getMazo().size());
+    }
+
 
 }
 

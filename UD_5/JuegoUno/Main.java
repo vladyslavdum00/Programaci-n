@@ -9,10 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Juego juego = new Juego();
-        juego.listarJugadores();
-        juego.listarCartas();
-        System.out.println(juego.getCartaActual());
-
+       juego.empezarJuego();
 
     }
 
@@ -28,5 +25,18 @@ public class Main {
         return cantidadJugadores;
     }
 
+    public static int pideNumeroCarta(){
+        System.out.println("Elige la carta (1-7): ");
+        int num = Integer.parseInt(sc.nextLine()) - 1;
+        return num;
+    }
+
+    public static int elegirJugada(){
+        System.out.println("1: Robar carta");
+        System.out.println("2: Poner carta");
+        System.out.println("Elige opcion: ");
+        int opt = Integer.parseInt(sc.nextLine());
+        return opt;
+    }
 
 }

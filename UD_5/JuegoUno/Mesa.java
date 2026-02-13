@@ -72,7 +72,7 @@ public class Mesa {
     @Override
     public String toString() {
         return "Mesa{" +
-                "mazo=" + mazo +
+                "mazo=" + descarte +
                 '}';
     }
 }
