@@ -7,6 +7,7 @@ public class Juego {
     private ArrayList<Jugador> jugadores;
     private Mesa mesa;
     private int turnoActual = 0;
+    private Color colorActual;
     private int direccion = 1;
     private Carta cartaActual;
 
@@ -23,6 +24,13 @@ public class Juego {
     }
     public Carta getCartaActual() {
         return cartaActual;
+    }
+
+    public void setColorActual(Color colorActual) {
+        this.colorActual = colorActual;
+    }
+    public Color getColorActual() {
+        return colorActual;
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -49,6 +57,7 @@ public class Juego {
 
     public void ponerPrimeraCartaActual(){
         setCartaActual(mesa.getMazo().getLast());
+        setColorActual(cartaActual.getColor());
         mesa.getMazo().remove(getCartaActual());
     }
 
@@ -90,71 +99,71 @@ public class Juego {
     public void listarCartas() {
 
         int ancho = 13; // ancho interno de la carta
-            Jugador jugador = getJugadores().get(turnoActual);
+        Jugador jugador = getJugadores().get(turnoActual);
 
+        System.out.println("\nCartas de: " + jugador.getNombre());
 
-            System.out.println("\nCartas de: " + jugador.getNombre());
+// Mostrar índices
+        for (int i = 0; i < jugador.getMano().size(); i++) {
+            String indice = "(" + (i + 1) + ")";
+            System.out.print(centrarTexto(indice, ancho + 2) + "  ");
+        }
+        System.out.println();
 
+// Borde superior
+        for (int i = 0; i < jugador.getMano().size(); i++) {
+            System.out.print("┌" + "─".repeat(ancho) + "┐  ");
+        }
+        System.out.println();
 
-            for (int i = 0; i < jugador.getMano().size(); i++) {
-                String indice = "(" + (i+1) + ")";
-                System.out.print(centrarTexto(indice, ancho + 2) + "  ");
+// Nombre de color con ANSI
+        for (Carta carta : jugador.getMano()) {
+            Color colorEnum = carta.getColor();
+            String nombreColor = colorEnum.getNombre(); // centrado sin ANSI
+            String colorCentrado = centrarTexto(nombreColor, ancho);
+            System.out.print("│" + colorEnum.getAnsi() + colorCentrado + "\u001B[0m" + "│  ");
+        }
+        System.out.println();
+
+// Línea en blanco
+        for (int i = 0; i < jugador.getMano().size(); i++) {
+            System.out.print("│" + " ".repeat(ancho) + "│  ");
+        }
+        System.out.println();
+
+// Valor de la carta
+        for (Carta carta : jugador.getMano()) {
+            String valor;
+            if (carta.getTipoCarta() == TipoCarta.NUMERO) {
+                valor = String.valueOf(carta.getNumero());
+            } else {
+                valor = carta.getTipoCarta().toString();
             }
-            System.out.println();
+            System.out.print("│" + centrarTexto(valor, ancho) + "│  ");
+        }
+        System.out.println();
 
+// Línea en blanco
+        for (int i = 0; i < jugador.getMano().size(); i++) {
+            System.out.print("│" + " ".repeat(ancho) + "│  ");
+        }
+        System.out.println();
 
-            for (int i = 0; i < jugador.getMano().size(); i++) {
-                System.out.print("┌" + "─".repeat(ancho) + "┐  ");
-            }
-            System.out.println();
-
-
-            for (Carta carta : jugador.getMano()) {
-                String color = carta.getColor().toString();
-                System.out.print("│" + centrarTexto(color, ancho) + "│  ");
-            }
-            System.out.println();
-
-
-            for (int i = 0; i < jugador.getMano().size(); i++) {
-                System.out.print("│" + " ".repeat(ancho) + "│  ");
-            }
-            System.out.println();
-
-
-            for (Carta carta : jugador.getMano()) {
-
-                String valor;
-
-                if (carta.getTipoCarta() == TipoCarta.NUMERO) {
-                    valor = String.valueOf(carta.getNumero());
-                } else {
-                    valor = carta.getTipoCarta().toString();
-                }
-
-                System.out.print("│" + centrarTexto(valor, ancho) + "│  ");
-            }
-            System.out.println();
-
-
-            for (int i = 0; i < jugador.getMano().size(); i++) {
-                System.out.print("│" + " ".repeat(ancho) + "│  ");
-            }
-            System.out.println();
-
-
-            for (int i = 0; i < jugador.getMano().size(); i++) {
-                System.out.print("└" + "─".repeat(ancho) + "┘  ");
-            }
-            System.out.println("\n");
+// Borde inferior
+        for (int i = 0; i < jugador.getMano().size(); i++) {
+            System.out.print("└" + "─".repeat(ancho) + "┘  ");
+        }
+        System.out.println("\n");
 
     }
 
     public void mostrarCartaActual() {
-        Carta carta =  getCartaActual();
+        Carta carta = getCartaActual();
         int ancho = 13;
 
-        String color = carta.getColor().toString();
+        Color colorEnum = carta.getColor();
+        String nombreColor = colorEnum.getNombre(); // sin color para centrar
+        String colorTexto = colorEnum.getAnsi() + nombreColor + "\u001B[0m"; // con color para mostrar
 
         String valor;
         if (carta.getTipoCarta() == TipoCarta.NUMERO) {
@@ -163,17 +172,41 @@ public class Juego {
             valor = carta.getTipoCarta().toString();
         }
 
+// Centrar el nombre sin contar ANSI
+        String colorCentrado = centrarTexto(nombreColor, ancho);
+
+// Mostrar carta
         System.out.println();
         System.out.println("Carta Actual:");
-
         System.out.println("┌" + "─".repeat(ancho) + "┐");
-        System.out.println("│" + centrarTexto(color, ancho) + "│");
+        System.out.println("│" + colorEnum.getAnsi() + colorCentrado + "\u001B[0m" + "│");
         System.out.println("│" + " ".repeat(ancho) + "│");
         System.out.println("│" + centrarTexto(valor, ancho) + "│");
         System.out.println("│" + " ".repeat(ancho) + "│");
         System.out.println("└" + "─".repeat(ancho) + "┘");
-
         System.out.println();
+
+    }
+    public void ponerColor(){
+        int color = Main.pedirColor();
+        switch(color){
+            case 1:
+                setColorActual(Color.ROJO);
+                break;
+            case 2:
+                setColorActual(Color.AZUL);
+                break;
+            case 3:
+                setColorActual(Color.AMARILLO);
+                break;
+            case 4:
+                setColorActual(Color.VERDE);
+                break;
+            default:
+                setColorActual(null);
+                break;
+        }
+        System.out.println("El jugador " + jugadores.get(turnoActual).getNombre() + " ha puesto color: " + getColorActual());
     }
 
     public void siguienteTurno() {
@@ -188,7 +221,15 @@ public class Juego {
         Carta cartaActual = getCartaActual();
         listarCartas();
         int opcion = Main.elegirJugada();
+        Jugador ganador;
+        boolean victoria = false;
         if (opcion == 1){
+            if(mesa.getMazo().isEmpty()){
+                mesa.getDescarte().removeLast();
+                mesa.getMazo().addAll(mesa.getDescarte());
+                mesa.getDescarte().clear();
+                mesa.barajarMazo();
+            }
             jugadores.get(turnoActual).getMano().add(mesa.getMazo().getLast());
             mesa.getMazo().removeLast();
             listarCartas();
@@ -198,20 +239,77 @@ public class Juego {
             int numCarta = Main.pideNumeroCarta();
             Carta cartaMano = jugadores.get(turnoActual).getMano().get(numCarta);
 
-            if (cartaMano.getColor().equals(cartaActual.getColor()) || cartaMano.getNumero() == cartaActual.getNumero() || cartaMano.getColor().equals(Color.NEGRO)) {
+
+            if ((cartaMano.getColor().equals(getColorActual())) ||
+                    (cartaMano.getNumero() == cartaActual.getNumero()) ||
+                    (cartaMano.getColor().equals(Color.NEGRO))
+            ||  (cartaMano.getTipoCarta() == TipoCarta.SKIP && cartaActual.getTipoCarta() == TipoCarta.SKIP) ||
+                    (cartaMano.getTipoCarta() == TipoCarta.REVERSA && cartaActual.getTipoCarta() == TipoCarta.REVERSA)
+            || (cartaMano.getTipoCarta() == TipoCarta.MAS_DOS && cartaActual.getTipoCarta() == TipoCarta.MAS_DOS) ||
+                    (cartaMano.getTipoCarta() == TipoCarta.MAS_CUATRO && cartaActual.getTipoCarta() == TipoCarta.MAS_CUATRO) ||
+                    (cartaMano.getTipoCarta() == TipoCarta.CAMBIA_COLOR && cartaActual.getTipoCarta() == TipoCarta.CAMBIA_COLOR)){
                 mesa.getDescarte().add(getCartaActual());
                 setCartaActual(cartaMano);
                 jugadores.get(turnoActual).getMano().remove(numCarta);
-                return true;
+                if (cartaMano.getColor() != Color.NEGRO) {
+                    setColorActual(cartaMano.getColor());
+                }
+
+                if(jugadores.get(turnoActual).getMano().size() == 1){
+                    System.out.println(jugadores.get(turnoActual).getNombre() +": " + "UNO!!!!!!");
+                }
+                if(jugadores.get(turnoActual).getMano().isEmpty()){
+                    ganador = jugadores.get(turnoActual);
+                    System.out.println("Ganador: " + ganador.getNombre());
+                    return true;
+                }
+
+
+// Calcular siguiente jugador
+                int siguiente = (turnoActual + direccion + jugadores.size()) % jugadores.size();
+
+                switch (cartaMano.getTipoCarta()) {
+
+                    case MAS_DOS:
+                        for (int i = 0; i < 2; i++) {
+                            jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                        }
+
+                        siguienteTurno(); // salta su turno
+                        siguienteTurno();
+                        break;
+
+                    case MAS_CUATRO:
+                        for (int i = 0; i < 4; i++) {
+                            jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                        }
+                        ponerColor();
+                        siguienteTurno();
+                        siguienteTurno();
+                        break;
+
+                    case SKIP:
+                        siguienteTurno();
+                        siguienteTurno();
+                        break;
+
+                    case REVERSA:
+                        setDireccion(getDireccion() * -1);
+                        siguienteTurno();
+                        break;
+
+                    case CAMBIA_COLOR:
+                        ponerColor();
+                        siguienteTurno();
+                        break;
+
+                    default:
+                        siguienteTurno();
+                        break;
+                }
         }
-
-
-
-
         }
-
-        return false;
-
+        return victoria;
     }
     public void mostrarDescarte(){
         for(Carta carta : mesa.getDescarte()){
@@ -220,14 +318,11 @@ public class Juego {
     }
 
     public void empezarJuego(){
-        while (true){
+        boolean victoria =  false;
+        while (!victoria){
             mostrarCantidadCartasBaraja();
             mostrarCartaActual();
-            boolean CartaPuesta = ponerCarta();
-            if (CartaPuesta){
-                siguienteTurno();
-
-            }
+            victoria = ponerCarta();
 
         }
     }

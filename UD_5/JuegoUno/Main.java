@@ -39,4 +39,14 @@ public class Main {
         return opt;
     }
 
+    public static int pedirColor(){
+        System.out.println("1: Rojo");
+        System.out.println("2: Azul");
+        System.out.println("3: Amarillo");
+        System.out.println("4: Verde");
+        System.out.println("Elige el color: ");
+        int color = Integer.parseInt(sc.nextLine());
+        return color;
+
+    }
 }
