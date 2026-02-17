@@ -9,7 +9,6 @@ public class Carta {
         setColor(color);
         setTipoCarta(tipoCarta);
         setNumero(numero);
-        setColorVisual(asignarColorVisual(color));
     }
     public void setColor(Color color) {
         this.color = color;
@@ -30,16 +29,7 @@ public class Carta {
         return numero;
     }
 
-    private String asignarColorVisual(Color color) {
-        switch(color) {
-            case ROJO: return "🔴";
-            case AZUL: return "🔵";
-            case VERDE: return "🟢";
-            case AMARILLO: return "🟡";
-            case NEGRO: return "⬛";
-            default: return "?";
-        }
-    }
+
 
     public String getColorVisual() {
         return colorVisual;

@@ -98,64 +98,76 @@ public class Juego {
 
     public void listarCartas() {
 
-        int ancho = 13; // ancho interno de la carta
+        int ancho = 13;
+        int maxPorFila = 10;
+
         Jugador jugador = getJugadores().get(turnoActual);
 
         System.out.println("\nCartas de: " + jugador.getNombre());
 
-// Mostrar índices
-        for (int i = 0; i < jugador.getMano().size(); i++) {
-            String indice = "(" + (i + 1) + ")";
-            System.out.print(centrarTexto(indice, ancho + 2) + "  ");
-        }
-        System.out.println();
+        int totalCartas = jugador.getMano().size();
 
-// Borde superior
-        for (int i = 0; i < jugador.getMano().size(); i++) {
-            System.out.print("┌" + "─".repeat(ancho) + "┐  ");
-        }
-        System.out.println();
+        for (int inicio = 0; inicio < totalCartas; inicio += maxPorFila) {
 
-// Nombre de color con ANSI
-        for (Carta carta : jugador.getMano()) {
-            Color colorEnum = carta.getColor();
-            String nombreColor = colorEnum.getNombre(); // centrado sin ANSI
-            String colorCentrado = centrarTexto(nombreColor, ancho);
-            System.out.print("│" + colorEnum.getAnsi() + colorCentrado + "\u001B[0m" + "│  ");
-        }
-        System.out.println();
+            int fin = Math.min(inicio + maxPorFila, totalCartas);
 
-// Línea en blanco
-        for (int i = 0; i < jugador.getMano().size(); i++) {
-            System.out.print("│" + " ".repeat(ancho) + "│  ");
-        }
-        System.out.println();
-
-// Valor de la carta
-        for (Carta carta : jugador.getMano()) {
-            String valor;
-            if (carta.getTipoCarta() == TipoCarta.NUMERO) {
-                valor = String.valueOf(carta.getNumero());
-            } else {
-                valor = carta.getTipoCarta().toString();
+            // Mostrar índices
+            for (int i = inicio; i < fin; i++) {
+                String indice = "(" + (i + 1) + ")";
+                System.out.print(centrarTexto(indice, ancho + 2) + "  ");
             }
-            System.out.print("│" + centrarTexto(valor, ancho) + "│  ");
-        }
-        System.out.println();
+            System.out.println();
 
-// Línea en blanco
-        for (int i = 0; i < jugador.getMano().size(); i++) {
-            System.out.print("│" + " ".repeat(ancho) + "│  ");
-        }
-        System.out.println();
+            // Borde superior
+            for (int i = inicio; i < fin; i++) {
+                System.out.print("┌" + "─".repeat(ancho) + "┐  ");
+            }
+            System.out.println();
 
-// Borde inferior
-        for (int i = 0; i < jugador.getMano().size(); i++) {
-            System.out.print("└" + "─".repeat(ancho) + "┘  ");
-        }
-        System.out.println("\n");
+            // Nombre color
+            for (int i = inicio; i < fin; i++) {
+                Carta carta = jugador.getMano().get(i);
+                Color colorEnum = carta.getColor();
+                String colorCentrado = centrarTexto(colorEnum.getNombre(), ancho);
+                System.out.print("│" + colorEnum.getAnsi() + colorCentrado + "\u001B[0m" + "│  ");
+            }
+            System.out.println();
 
+            // Línea en blanco
+            for (int i = inicio; i < fin; i++) {
+                System.out.print("│" + " ".repeat(ancho) + "│  ");
+            }
+            System.out.println();
+
+            // Valor
+            for (int i = inicio; i < fin; i++) {
+                Carta carta = jugador.getMano().get(i);
+                String valor;
+
+                if (carta.getTipoCarta() == TipoCarta.NUMERO) {
+                    valor = String.valueOf(carta.getNumero());
+                } else {
+                    valor = carta.getTipoCarta().toString();
+                }
+
+                System.out.print("│" + centrarTexto(valor, ancho) + "│  ");
+            }
+            System.out.println();
+
+            // Línea en blanco
+            for (int i = inicio; i < fin; i++) {
+                System.out.print("│" + " ".repeat(ancho) + "│  ");
+            }
+            System.out.println();
+
+            // Borde inferior
+            for (int i = inicio; i < fin; i++) {
+                System.out.print("└" + "─".repeat(ancho) + "┘  ");
+            }
+            System.out.println("\n");
+        }
     }
+
 
     public void mostrarCartaActual() {
         Carta carta = getCartaActual();
@@ -265,7 +277,6 @@ public class Juego {
                 }
 
 
-// Calcular siguiente jugador
                 int siguiente = (turnoActual + direccion + jugadores.size()) % jugadores.size();
 
                 switch (cartaMano.getTipoCarta()) {
@@ -280,12 +291,80 @@ public class Juego {
                         break;
 
                     case MAS_CUATRO:
-                        for (int i = 0; i < 4; i++) {
-                            jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                        switch(mesa.getMazo().size()){
+                            case 0:
+                                mesa.getDescarte().removeLast();
+                                mesa.getMazo().addAll(mesa.getDescarte());
+                                mesa.getDescarte().clear();
+                                mesa.barajarMazo();
+
+                                for (int i = 0; i < 4; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+                                ponerColor();
+                                siguienteTurno();
+                                siguienteTurno();
+                                break;
+
+                            case 1:
+                                jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+
+                                mesa.getDescarte().removeLast();
+                                mesa.getMazo().addAll(mesa.getDescarte());
+                                mesa.getDescarte().clear();
+                                mesa.barajarMazo();
+
+                                for (int i = 0; i < 3; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+                                ponerColor();
+                                siguienteTurno();
+                                siguienteTurno();
+                                break;
+                            case 2:
+                                for (int i = 0; i < 2; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+
+                                mesa.getDescarte().removeLast();
+                                mesa.getMazo().addAll(mesa.getDescarte());
+                                mesa.getDescarte().clear();
+                                mesa.barajarMazo();
+
+                                for (int i = 0; i < 2; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+                                ponerColor();
+                                siguienteTurno();
+                                siguienteTurno();
+                                break;
+                            case 3:
+                                for (int i = 0; i < 3; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+                                mesa.getDescarte().removeLast();
+                                mesa.getMazo().addAll(mesa.getDescarte());
+                                mesa.getDescarte().clear();
+                                mesa.barajarMazo();
+
+                                jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+
+                                ponerColor();
+                                siguienteTurno();
+                                siguienteTurno();
+                                break;
+
+                            default:
+                                for (int i = 0; i < 4; i++) {
+                                    jugadores.get(siguiente).getMano().add(mesa.getMazo().removeLast());
+                                }
+                                ponerColor();
+                                siguienteTurno();
+                                siguienteTurno();
+
                         }
-                        ponerColor();
-                        siguienteTurno();
-                        siguienteTurno();
+
+
                         break;
 
                     case SKIP:
