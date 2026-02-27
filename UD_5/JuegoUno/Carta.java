@@ -4,6 +4,7 @@ public class Carta {
     private Color color;
     private TipoCarta tipoCarta;
     private int numero;
+    private String colorVisual;
     public Carta(Color color, TipoCarta tipoCarta, int numero) {
         setColor(color);
         setTipoCarta(tipoCarta);
@@ -28,6 +29,14 @@ public class Carta {
         return numero;
     }
 
+
+
+    public String getColorVisual() {
+        return colorVisual;
+    }
+    public void setColorVisual(String colorVisual) {
+        this.colorVisual = colorVisual;
+    }
 
 
     @Override
