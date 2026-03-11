@@ -8,10 +8,11 @@ public class Bardo extends Arquero {
     }
     @Override
     public void recibirDanio(int cantidad){
-
+        System.out.println("Bardo está intentando esquivar...");
         if (Math.random() <= 0.30){
             System.out.println(nombre + " Esquiva el ataque");
         }else{
+            System.out.println(nombre + " No esquiva el ataque");
         super.recibirDanio(cantidad);}
     }
 
