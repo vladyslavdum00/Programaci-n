@@ -1,6 +1,6 @@
 package FinalFantasy_V2;
 
-public class HechiceroDeLuz extends Mago{
+public class HechiceroDeLuz extends Mago implements ISanador{
     public HechiceroDeLuz(String nombre, int vida, int ataqueBase, int nivel, int mana){
         super(nombre, vida, ataqueBase, nivel, mana);
     }
@@ -18,5 +18,20 @@ public class HechiceroDeLuz extends Mago{
 
             }
         }
+    }
+
+    @Override
+    public int getCantidadSanacion() {
+        return 20;
+    }
+
+    @Override
+    public void sanar(Personaje objetivo) {
+        if((objetivo.vida + getCantidadSanacion()) > 100){
+            objetivo.vida = 100;
+        }else{
+            objetivo.vida += getCantidadSanacion();
+        }
+
     }
 }
