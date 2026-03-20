@@ -20,7 +20,7 @@ public class Caballero extends Guerrero implements IEvasion{
 
     @Override
     public boolean evadeAtaque() {
-        return Math.random() < 0.30;
+        return Math.random() < 0.40;
     }
 
 }

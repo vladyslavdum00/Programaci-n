@@ -22,11 +22,14 @@ public class Paladin extends Guerrero implements ISanador, ISupport{
 
     @Override
     public void sanar(Personaje objetivo) {
-        if((objetivo.vida + getCantidadSanacion()) > 100){
-            objetivo.vida = 100;
-        }else{
-            objetivo.vida += getCantidadSanacion();
+        if(objetivo.vida < 100){
+            if((objetivo.vida + getCantidadSanacion()) > 100){
+                objetivo.vida = 100;
+            }else{
+                objetivo.vida += getCantidadSanacion();
+            }
         }
+
     }
 
     @Override
@@ -44,10 +47,10 @@ public class Paladin extends Guerrero implements ISanador, ISupport{
                 Personaje aliado;
                 do {
                    aliado = aliados.get(random.nextInt(aliados.size()));
-                } while (!aliado.estaVivo() && aliado.equals(this));
+                } while (!aliado.estaVivo() || aliado.equals(this));
 
                    aliado.ataqueBase += 7;
-                   System.out.println("Paladin activa AURA: +7 a " + aliado.nombre);
+                   System.out.println("Paladin activa AURA: +7 a " + aliado.getNombre());
             }
         }
     }

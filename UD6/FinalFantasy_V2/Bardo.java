@@ -9,7 +9,7 @@ public class Bardo extends Arquero implements IEvasion{
 
     @Override
     public boolean evadeAtaque() {
-        return Math.random() < 0.40;
+        return Math.random() < 0.50;
     }
 
     @Override
