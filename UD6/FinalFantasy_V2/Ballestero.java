@@ -20,8 +20,8 @@ public class Ballestero extends Arquero{
             return;
         }
         if (enemigo.estaVivo()){
-            super.atacar(enemigo);
-            enemigo.recibirDanio(10);
+
+            enemigo.recibirDanio(ataqueBase + (nivel*5));
             this.recargando = true;
         }
     }
