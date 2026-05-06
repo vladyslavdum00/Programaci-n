@@ -8,4 +8,12 @@ public abstract class Maestro {
         this.vida = vida;
 
     }
+    public String toString() {
+        return getClass().getSimpleName() + ": " + this.nombre +". Vida: " + this.vida +".";
+    }
+
+    abstract public void atacar(Maestro defensor);
+    public void recibirDanio(int danio) {
+        this.vida -= danio;
+    }
 }
